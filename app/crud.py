@@ -56,3 +56,30 @@ def add_todo(db: Session, title: str, collection: models.Collection):
 
 def get_todos(db: Session, collection: models.Collection):
     return collection.todos
+
+
+def update_todo(db: Session, todo_id: int, title: str, user: models.User):
+    todo = (
+        db.query(models.Todo)
+        .join(models.Collection)
+        .filter(models.Todo.id == todo_id, models.Collection.user_id == user.id)
+        .first()
+    )
+    if todo:
+        todo.title = title
+        db.commit()
+        db.refresh(todo)
+    return todo
+
+
+def delete_todo(db: Session, todo_id: int, user: models.User):
+    todo = (
+        db.query(models.Todo)
+        .join(models.Collection)
+        .filter(models.Todo.id == todo_id, models.Collection.user_id == user.id)
+        .first()
+    )
+    if todo:
+        db.delete(todo)
+        db.commit()
+    return todo

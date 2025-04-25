@@ -10,6 +10,10 @@ class TodoCreate(TodoBase):
     pass
 
 
+class TodoUpdate(TodoBase):
+    pass
+
+
 class TodoInDB(TodoBase):
     id: int
 

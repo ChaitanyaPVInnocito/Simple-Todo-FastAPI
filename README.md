@@ -7,3 +7,6 @@ venv\Scripts\activate
 ```bash
 uvicorn main:app --reload
 ```
+
+# Screen shots:
+![alt text](image.png)
