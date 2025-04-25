@@ -23,4 +23,4 @@ uvicorn main:app --reload
 ```
 
 # Screen shots:
-![alt text](image.png)
+![alt text](README_STATIC/image.png)
