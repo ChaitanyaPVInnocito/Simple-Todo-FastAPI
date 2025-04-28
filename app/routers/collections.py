@@ -6,21 +6,21 @@ from app.auth_utils import get_current_user, get_db
 router = APIRouter()
 
 
-@router.post("/collections", response_model=schemas.CollectionInDB)
+@router.post("/collections", response_model=schemas.CollectionInDB, tags=["collections"])
 def create(
     name: str, db: Session = Depends(get_db), current_user=Depends(get_current_user)
 ):
     return crud.create_collection(db, name, current_user)
 
 
-@router.get("/collections", response_model=list[schemas.CollectionInDB])
+@router.get("/collections", response_model=list[schemas.CollectionInDB], tags=["collections"])
 def list_collections(
     db: Session = Depends(get_db), current_user=Depends(get_current_user)
 ):
     return crud.get_collections(db, current_user)
 
 
-@router.put("/collections/{collection_id}", response_model=schemas.CollectionInDB)
+@router.put("/collections/{collection_id}", response_model=schemas.CollectionInDB, tags=["collections"])
 def update_collection(
     collection_id: int,
     name: str,
@@ -36,7 +36,7 @@ def update_collection(
     return collection
 
 
-@router.delete("/collections/{collection_id}")
+@router.delete("/collections/{collection_id}", tags=["collections"])
 def delete_collection(
     collection_id: int,
     db: Session = Depends(get_db),

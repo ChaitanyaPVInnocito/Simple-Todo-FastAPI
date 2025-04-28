@@ -19,7 +19,7 @@ venv\Scripts\activate
 ```
 
 ```bash
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 
 # Screen shots:

@@ -6,7 +6,7 @@ from app.auth_utils import get_current_user, get_db
 router = APIRouter()
 
 
-@router.post("/collections/{collection_id}/todos", response_model=schemas.TodoInDB)
+@router.post("/collections/{collection_id}/todos", response_model=schemas.TodoInDB, tags=["todos"])
 def add_todo(
     collection_id: int,
     title: str,
@@ -19,7 +19,7 @@ def add_todo(
     return crud.add_todo(db, title, collection)
 
 
-@router.get("/collections/{collection_id}/todos", response_model=list[schemas.TodoInDB])
+@router.get("/collections/{collection_id}/todos", response_model=list[schemas.TodoInDB], tags=["todos"])
 def list_todos(
     collection_id: int,
     db: Session = Depends(get_db),
@@ -31,7 +31,7 @@ def list_todos(
     return crud.get_todos(db, collection)
 
 
-@router.put("/todos/{todo_id}", response_model=schemas.TodoInDB)
+@router.put("/todos/{todo_id}", response_model=schemas.TodoInDB, tags=["todos"])
 def update_todo(
     todo_id: int,
     todo: schemas.TodoUpdate,
@@ -44,7 +44,7 @@ def update_todo(
     return updated
 
 
-@router.delete("/todos/{todo_id}")
+@router.delete("/todos/{todo_id}", tags=["todos"])
 def delete_todo(
     todo_id: int, db: Session = Depends(get_db), current_user=Depends(get_current_user)
 ):

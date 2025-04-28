@@ -7,7 +7,7 @@ from app.auth_utils import create_access_token, get_db
 router = APIRouter()
 
 
-@router.post("/signup")
+@router.post("/signup", tags=["auth"])
 def signup(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_username(db, user.username)
     if db_user:
@@ -16,7 +16,7 @@ def signup(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return {"msg": "User created successfully"}
 
 
-@router.post("/token", response_model=schemas.Token)
+@router.post("/token", response_model=schemas.Token, tags=["auth"])
 def login(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
