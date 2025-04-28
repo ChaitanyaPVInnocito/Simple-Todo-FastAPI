@@ -3,10 +3,10 @@ from sqlalchemy.orm import Session
 from app import crud, schemas
 from app.auth_utils import get_current_user, get_db
 
-router = APIRouter()
+router = APIRouter(tags=["todos"])
 
 
-@router.post("/collections/{collection_id}/todos", response_model=schemas.TodoInDB, tags=["todos"])
+@router.post("/collections/{collection_id}/todos", response_model=schemas.TodoInDB)
 def add_todo(
     collection_id: int,
     title: str,
@@ -19,7 +19,7 @@ def add_todo(
     return crud.add_todo(db, title, collection)
 
 
-@router.get("/collections/{collection_id}/todos", response_model=list[schemas.TodoInDB], tags=["todos"])
+@router.get("/collections/{collection_id}/todos", response_model=list[schemas.TodoInDB])
 def list_todos(
     collection_id: int,
     db: Session = Depends(get_db),
@@ -31,7 +31,7 @@ def list_todos(
     return crud.get_todos(db, collection)
 
 
-@router.put("/todos/{todo_id}", response_model=schemas.TodoInDB, tags=["todos"])
+@router.put("/todos/{todo_id}", response_model=schemas.TodoInDB)
 def update_todo(
     todo_id: int,
     todo: schemas.TodoUpdate,
@@ -44,7 +44,7 @@ def update_todo(
     return updated
 
 
-@router.delete("/todos/{todo_id}", tags=["todos"])
+@router.delete("/todos/{todo_id}")
 def delete_todo(
     todo_id: int, db: Session = Depends(get_db), current_user=Depends(get_current_user)
 ):

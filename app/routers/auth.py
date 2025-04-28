@@ -4,10 +4,10 @@ from sqlalchemy.orm import Session
 from app import crud, schemas
 from app.auth_utils import create_access_token, get_db
 
-router = APIRouter()
+router = APIRouter(tags=["auth"])
 
 
-@router.post("/signup", tags=["auth"])
+@router.post("/signup")
 def signup(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_username(db, user.username)
     if db_user:
@@ -16,7 +16,7 @@ def signup(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return {"msg": "User created successfully"}
 
 
-@router.post("/token", response_model=schemas.Token, tags=["auth"])
+@router.post("/token", response_model=schemas.Token)
 def login(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
