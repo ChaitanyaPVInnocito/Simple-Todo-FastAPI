@@ -1,4 +1,4 @@
-# Simple-Todo-FastAPI
+# FastAPI-Simple-Todo
 ## How to Install:
 
 ```bash
