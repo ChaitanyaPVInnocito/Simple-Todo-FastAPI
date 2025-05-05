@@ -19,7 +19,7 @@ venv\Scripts\activate
 ```
 
 ```bash
-uvicorn app.main:app --reload
+flask --app market.py run --debug
 ```
 
 # Screen shots:
